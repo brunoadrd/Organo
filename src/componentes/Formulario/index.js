@@ -1,19 +1,23 @@
 import './Formulario.css'
-import CampoTexto from '../CampoTexto/CampoTexto.js';
+import Campo from '../Campo/Campo.js';
 import ListaSuspensa from '../ListaSuspensa';
 import Botao from '../Botao';
 import { useState } from 'react';
 
 const Formulario = (props) => {
 
+    const id = props.colaboradorID;
+    const favorito = false;
     const [nome, setNome] = useState('');
     const [cargo, setCargo] = useState('');
     const [imagem, setImagem] = useState('');
-    const [time, setTime] = useState('Programação');
+    const [time, setTime] = useState('');
+    const [nomeTime, setNomeTime] = useState('');
+    const [corTime, setCorTime] = useState('');
 
     const aoSalvar = (evento) => {
         evento.preventDefault();
-        props.aoCadastrar({nome, cargo, imagem, time});
+        props.aoCadastrar({id, nome, cargo, imagem, time, favorito});
 
         setNome('');
         setCargo('');
@@ -25,13 +29,24 @@ const Formulario = (props) => {
         <section className="formulario">
             <form onSubmit={aoSalvar}>
                 <h2>Preencha os dados para criar o card do colaborador</h2>
-                <CampoTexto obrigatorio={true} label="Nome" placeholder="Digite seu nome" valor={nome} aoAlterar={valor => setNome(valor)} />
-                <CampoTexto obrigatorio={true} label="Cargo" placeholder="Digite seu cargo" valor={cargo} aoAlterar={valor => setCargo(valor)} />
-                <CampoTexto label="Imagem" placeholder="Digite o endereço da imagem" valor={imagem} aoAlterar={valor => setImagem(valor)} />
+                <Campo obrigatorio={true} label="Nome" placeholder="Digite seu nome" valor={nome} aoAlterar={valor => setNome(valor)} />
+                <Campo obrigatorio={true} label="Cargo" placeholder="Digite seu cargo" valor={cargo} aoAlterar={valor => setCargo(valor)} />
+                <Campo label="Imagem" placeholder="Digite o endereço da imagem" valor={imagem} aoAlterar={valor => setImagem(valor)} />
                 
                 <ListaSuspensa obrigatorio={true} label="Time" itens={props.times} valor={time} aoAlterar={valor => setTime(valor)}/>
                 
                 <Botao>Criar Card</Botao>
+            </form>
+
+            <form onSubmit={(evento) => {
+                evento.preventDefault();
+                props.cadastrarTime({nome: nomeTime, cor: corTime});
+            }}>
+                <h2>Preencha os dados para criar um novo time</h2>
+                <Campo obrigatorio label="Nome" placeholder="Digite o nome do time" valor={nomeTime} aoAlterar={valor => setNomeTime(valor)} />
+                <Campo obrigatorio type="color" label="Cor" placeholder="Digite a cor do time" valor={corTime} aoAlterar={valor => setCorTime(valor)} />
+                
+                <Botao>Criar um novo time</Botao>
             </form>
         </section>
     );
