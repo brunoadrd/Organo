@@ -5,6 +5,9 @@ import Time from './componentes/Time/index.js';
 import Rodape from './componentes/Rodape/index.js';
 import { v4 as uuidv4 } from 'uuid';
 
+import { MdOutlineLibraryAdd } from 'react-icons/md';
+import Botao from './componentes/Botao/index.js';
+
 function App() {
 
   const [times, setTimes] = useState([
@@ -53,14 +56,14 @@ function App() {
 
   function mudarCorTime(cor, id) {
     setTimes(times.map(time => {
-      if(time.id === id) time.cor = cor;
-      
+      if (time.id === id) time.cor = cor;
+
       return time;
     }));
   }
 
-  function cadastrarTime (novoTime) {
-    setTimes([...times, {id: uuidv4(), ...novoTime}])
+  function cadastrarTime(novoTime) {
+    setTimes([...times, { id: uuidv4(), ...novoTime }])
   }
 
   function resolverFavorito(id) {
@@ -68,6 +71,10 @@ function App() {
       if (colaborador.id === id) colaborador.favorito = !colaborador.favorito;
       return colaborador;
     }));
+  }
+
+  function esconderSecao() {
+    setColaboradores(colaboradores.filter(colaborador => colaborador == ''));
   }
 
   return (
@@ -79,6 +86,13 @@ function App() {
         aoCadastrar={colaborador => setColaboradores([...colaboradores, colaborador])}
         cadastrarTime={cadastrarTime}
       />
+
+      <section className="titulo">
+        <h2>Minha Organização:</h2>
+        <Botao className="botao">
+          <MdOutlineLibraryAdd size={62} onClick={esconderSecao} />
+        </Botao>
+      </section>
 
       {times.map(
         time => <Time
@@ -93,7 +107,7 @@ function App() {
         />
       )}
 
-      <Rodape/>
+      <Rodape />
     </div>
   );
 }

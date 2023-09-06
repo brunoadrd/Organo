@@ -13,12 +13,13 @@ const Formulario = (props) => {
     const [imagem, setImagem] = useState('');
     const [time, setTime] = useState('');
     const [nomeTime, setNomeTime] = useState('');
-    const [corTime, setCorTime] = useState('');
+    const [corTime, setCorTime] = useState('#FFFFFF');
 
     const aoSalvar = (evento) => {
         evento.preventDefault();
         props.aoCadastrar({id, nome, cargo, imagem, time, favorito});
 
+        setCorTime('#FFFFFF');
         setNome('');
         setCargo('');
         setImagem('');

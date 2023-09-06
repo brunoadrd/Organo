@@ -24,3 +24,32 @@
     top: 20px;
     right: 50px;
 }
+
+.titulo {
+    display: flex;
+    text-align: center; 
+    justify-content: center;  
+    padding-bottom: 24px;
+    position: relative;
+}
+
+.titulo h2 {
+    font-size: 48px;
+    color: #6278F7;
+    border-bottom: 4px solid;
+    border-color: #6278F7;
+    display: inline-block;
+}
+
+.titulo .botao {
+    flex-wrap: wrap;
+    position: absolute;
+    right: 100px;
+    top: -90px;
+    padding: 12px;
+    border-radius: 100%;
+    border: 4px solid;
+    border-color: white;
+    box-shadow: 4px 4px rgba(0, 0, 0, 0.08);
+    text-align: right;
+}
